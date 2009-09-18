@@ -17,6 +17,9 @@ Suggests:	python-gmpy >= 1.03, python-pyglet
 BuildArch:	noarch
 %py_requires -d
 
+BuildRequires:	python-sphinx
+
+
 %description
 Mpmath is a pure-Python library for multiprecision floating-point arithmetic.
 It provides an extensive set of transcendental functions, unlimited exponent
