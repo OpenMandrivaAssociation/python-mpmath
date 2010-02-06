@@ -1,6 +1,6 @@
 %define module	mpmath
 %define name	python-%{module}
-%define version	0.13
+%define version	0.14
 %define release	%mkrel 1
 
 Summary:	Python library for symbolic mathematics
