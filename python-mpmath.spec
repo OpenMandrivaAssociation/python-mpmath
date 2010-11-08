@@ -54,7 +54,7 @@ popd
 
 %files
 %defattr(-,root,root)
-%py_platsitedir/*
+%py_puresitedir/*
 
 %files		doc
 %defattr(-,root,root)
