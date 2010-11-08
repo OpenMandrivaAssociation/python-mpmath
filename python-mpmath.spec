@@ -1,23 +1,21 @@
 %define module	mpmath
 %define name	python-%{module}
-%define version	0.14
-%define release	%mkrel 2
+%define version	0.16
+%define release	%mkrel 1
 
 Summary:	Python library for symbolic mathematics
 Name:		%{name}
 Version:	%{version}
 Release:	%{release}
 Source0:	http://mpmath.googlecode.com/files/%{module}-%{version}.tar.gz
+Source1:        http://mpmath.googlecode.com/files/%{module}-docsrc-%{version}.tar.gz
 License:	BSD
 Group:		Development/Python
 Url:		http://mpmath.googlecode.com/
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
-Requires: 	python-numpy
-Suggests:	python-gmpy >= 1.03, python-pyglet
 BuildArch:	noarch
-BuildRequires:	python
-BuildRequires:	python-sphinx
-
+Suggests:	python-gmpy >= 1.03, python-numpy, python-matplotlib
+BuildRequires:	python, python-sphinx
 
 %description
 Mpmath is a pure-Python library for multiprecision floating-point arithmetic.
@@ -30,7 +28,7 @@ well for extremely high precision work. If available, mpmath will (optionally)
 use gmpy to speed up high precision operations. 
 
 %package	doc
-Group:		Development/Other
+Group:		Development/Python
 Summary:	Documentation for python-%{name}
 
 %description	doc
@@ -41,12 +39,14 @@ Documentation for python-%{name}.
 
 %install
 %__rm -rf %{buildroot}
-%__python setup.py install --root=%{buildroot} --record=FILELIST
+PYTHONDONTWRITEBYTECODE= %__python setup.py install --root=%{buildroot} 
+tar zxf %SOURCE1
 
 pushd doc
-    %__python build.py
-    mkdir -p %{buildroot}/%{_docdir}/%{module}
-    cp -far build/* %{buildroot}/%{_docdir}/%{module}
+%__python build.py
+%__rm -rf build/.buildinfo build/.doctrees
+mkdir -p %{buildroot}/%{_docdir}/%{module}
+cp -far build/* %{buildroot}/%{_docdir}/%{module}
 popd
 
 %clean
@@ -54,9 +54,11 @@ popd
 
 %files
 %defattr(-,root,root)
+%doc CHANGES LICENSE README
 %py_puresitedir/*
 
-%files		doc
+%files doc
 %defattr(-,root,root)
-%dir %{_docdir}/%{module}
-%{_docdir}/%{module}/*
+%dir %{_docdir}/%{module}/
+%{_docdir}/%{module}/
+
