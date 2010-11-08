@@ -1,7 +1,7 @@
 %define module	mpmath
 %define name	python-%{module}
 %define version	0.14
-%define release	%mkrel 1
+%define release	%mkrel 2
 
 Summary:	Python library for symbolic mathematics
 Name:		%{name}
@@ -15,8 +15,7 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Requires: 	python-numpy
 Suggests:	python-gmpy >= 1.03, python-pyglet
 BuildArch:	noarch
-%py_requires -d
-
+BuildRequires:	python
 BuildRequires:	python-sphinx
 
 
@@ -53,8 +52,9 @@ popd
 %clean
 %__rm -rf %{buildroot}
 
-%files -f FILELIST
+%files
 %defattr(-,root,root)
+%py_platsitedir/*
 
 %files		doc
 %defattr(-,root,root)
