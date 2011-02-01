@@ -1,14 +1,13 @@
 %define module	mpmath
 %define name	python-%{module}
-%define version	0.16
+%define version	0.17
 %define release	%mkrel 1
 
 Summary:	Python library for symbolic mathematics
 Name:		%{name}
 Version:	%{version}
 Release:	%{release}
-Source0:	http://mpmath.googlecode.com/files/%{module}-%{version}.tar.gz
-Source1:        http://mpmath.googlecode.com/files/%{module}-docsrc-%{version}.tar.gz
+Source0:	http://mpmath.googlecode.com/files/%{module}-all-%{version}.tar.gz
 License:	BSD
 Group:		Development/Python
 Url:		http://mpmath.googlecode.com/
@@ -35,12 +34,11 @@ Summary:	Documentation for python-%{name}
 Documentation for python-%{name}.
 
 %prep
-%setup -q -n %{module}-%{version}
+%setup -q -n %{module}-all-%{version}
 
 %install
 %__rm -rf %{buildroot}
 PYTHONDONTWRITEBYTECODE= %__python setup.py install --root=%{buildroot} 
-tar zxf %SOURCE1
 
 pushd doc
 %__python build.py
