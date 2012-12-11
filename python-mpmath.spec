@@ -1,20 +1,17 @@
 %define module	mpmath
-%define name	python-%{module}
-%define version	0.17
-%define release	%mkrel 1
 
 Summary:	Python library for symbolic mathematics
-Name:		%{name}
-Version:	%{version}
-Release:	%{release}
+Name:		python-%{module}
+Version:	0.17
+Release:	2
 Source0:	http://mpmath.googlecode.com/files/%{module}-all-%{version}.tar.gz
 License:	BSD
 Group:		Development/Python
 Url:		http://mpmath.googlecode.com/
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildArch:	noarch
 Suggests:	python-gmpy >= 1.03, python-numpy, python-matplotlib
-BuildRequires:	python, python-sphinx
+BuildRequires:	python
+BuildRequires:  python-sphinx
 
 %description
 Mpmath is a pure-Python library for multiprecision floating-point arithmetic.
@@ -37,7 +34,6 @@ Documentation for python-%{name}.
 %setup -q -n %{module}-all-%{version}
 
 %install
-%__rm -rf %{buildroot}
 PYTHONDONTWRITEBYTECODE= %__python setup.py install --root=%{buildroot} 
 
 pushd doc
@@ -47,16 +43,36 @@ mkdir -p %{buildroot}/%{_docdir}/%{module}
 cp -far build/* %{buildroot}/%{_docdir}/%{module}
 popd
 
-%clean
-%__rm -rf %{buildroot}
-
 %files
-%defattr(-,root,root)
 %doc CHANGES LICENSE README
 %py_puresitedir/*
 
 %files doc
 %defattr(-,root,root)
-%dir %{_docdir}/%{module}/
 %{_docdir}/%{module}/
+
+
+
+%changelog
+* Wed Feb 02 2011 Lev Givon <lev@mandriva.org> 0.17-1mdv2011.0
++ Revision: 634920
+- Update to 0.17.
+
+* Tue Nov 09 2010 Lev Givon <lev@mandriva.org> 0.16-1mdv2011.0
++ Revision: 595135
+- Update to 0.16.
+
+* Mon Nov 08 2010 Funda Wang <fwang@mandriva.org> 0.14-2mdv2011.0
++ Revision: 594960
+- update file list
+- rebuild for py 2.7
+
+* Sat Feb 06 2010 Frederik Himpe <fhimpe@mandriva.org> 0.14-1mdv2010.1
++ Revision: 501447
+- update to new version 0.14
+
+* Fri Sep 18 2009 Paulo Andrade <pcpa@mandriva.com.br> 0.13-1mdv2010.0
++ Revision: 444223
+- Initial import of python-mpmath 0.13.
+- python-mpmath
 
