@@ -26,7 +26,7 @@ well for extremely high precision work. If available, mpmath will (optionally)
 use gmpy to speed up high precision operations. 
 
 %files -f FILELIST
-%doc CHANGES LICENSE README
+%doc CHANGES LICENSE README.rst
 %doc demo/
 
 #----------------------------------------------------------------------------
