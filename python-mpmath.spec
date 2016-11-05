@@ -61,7 +61,7 @@ sed -i '/\\*.pyc$/d' FILELIST
 # install doc
 rm -rf doc/build/.buildinfo doc/build/.doctrees
 install -dm 0755 %{buildroot}/%{_docdir}/%{module}/
-install -pm 0644 doc/build/* %{buildroot}/%{_docdir}/%{module}/
+cp -far build/* %{buildroot}/%{_docdir}/%{module}/
 
 %changelog
 * Wed Feb 02 2011 Lev Givon <lev@mandriva.org> 0.17-1mdv2011.0
