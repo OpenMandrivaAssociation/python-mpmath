@@ -2,16 +2,18 @@
 
 Summary:	Python library for symbolic mathematics
 Name:		python-%{module}
-Version:	0.17
-Release:	4
-Source0:	http://mpmath.googlecode.com/files/%{module}-all-%{version}.tar.gz
-License:	BSD
+Version:	0.19
+Release:	1
+License:	BSD and MIT
 Group:		Development/Python
-Url:		http://mpmath.googlecode.com/
+Url:		http://mpmath.org/
+Source0:	https://github.com/fredrik-johansson/%{module}/archive/%{version}.tar.gz
 BuildArch:	noarch
+
+BuildRequires:	pkgconfig(python)
+BuildRequires:	pythonegg(sphinx)
+
 Suggests:	python-gmpy >= 1.03, python-numpy, python-matplotlib
-BuildRequires:	python
-BuildRequires:  python-sphinx
 
 %description
 Mpmath is a pure-Python library for multiprecision floating-point arithmetic.
@@ -23,35 +25,43 @@ and in many cases mpmath implements asymptotically fast algorithms that scale
 well for extremely high precision work. If available, mpmath will (optionally)
 use gmpy to speed up high precision operations. 
 
-%package	doc
-Group:		Development/Python
-Summary:	Documentation for python-%{name}
-
-%description	doc
-Documentation for python-%{name}.
-
-%prep
-%setup -q -n %{module}-all-%{version}
-
-%install
-PYTHONDONTWRITEBYTECODE= %__python setup.py install --root=%{buildroot} 
-
-pushd doc
-%__python build.py
-%__rm -rf build/.buildinfo build/.doctrees
-mkdir -p %{buildroot}/%{_docdir}/%{module}
-cp -far build/* %{buildroot}/%{_docdir}/%{module}
-popd
-
-%files
+%files -f FILELIST
 %doc CHANGES LICENSE README
-%py_puresitedir/*
+%doc demo/
+
+#----------------------------------------------------------------------------
+
+%package doc
+Group:		Development/Python
+Summary:	Documentation for python-%{module}
+
+%description doc
+Documentation for python-%{module}.
 
 %files doc
-%defattr(-,root,root)
 %{_docdir}/%{module}/
 
+#----------------------------------------------------------------------------
 
+%prep
+%setup -q -n %{module}-%{version}
+
+%build
+# build doc
+pushd doc
+%{__python} build.py
+popd
+
+%install
+%{__python} setup.py install --root=%{buildroot} --record=FILELIST
+
+# remove *.pyc files from FILELIST
+sed -i '/\\*.pyc$/d' FILELIST
+
+# install doc
+rm -rf doc/build/.buildinfo doc/build/.doctrees
+install -dm 0755 %{buildroot}/%{_docdir}/%{module}/
+install -pm 0644 doc/build/* %{buildroot}/%{_docdir}/%{module}/
 
 %changelog
 * Wed Feb 02 2011 Lev Givon <lev@mandriva.org> 0.17-1mdv2011.0
