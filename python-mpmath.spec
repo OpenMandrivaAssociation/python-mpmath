@@ -2,9 +2,9 @@
 
 Summary:	Python library for symbolic mathematics
 Name:		python-%{module}
-Version:	0.19
+Version:	1.1.0
 Release:	1
-Source0:	http://mpmath.org/files/%{module}-%{version}.tar.gz
+Source0:	https://pypi.io/packages/source/m/mpmath/mpmath-%{version}.tar.gz
 License:	BSD
 Group:		Development/Python
 Url:		http://mpmath.org
@@ -34,16 +34,15 @@ Suggests:	python2-gmpy >= 1.03, python2-numpy, python2-matplotlib
 cp -a . %py2dir
 
 %install
-PYTHONDONTWRITEBYTECODE= %__python setup.py install --root=%{buildroot} 
+PYTHONDONTWRITEBYTECODE= %__%py_install 
 
 pushd %py2dir
-PYTHONDONTWRITEBYTECODE= %__python2 setup.py install --root=%{buildroot}
+PYTHONDONTWRITEBYTECODE= python2 setup.py install --root=%{buildroot}
 
 %files
 %doc CHANGES LICENSE
-%py_puresitedir/*
+%{py_puresitedir}/*
 
 %files -n python2-%module
 %doc CHANGES LICENSE
 %py2_puresitedir/*
-
