@@ -7,7 +7,7 @@ Release:	2
 Source0:	http://mpmath.org/files/%{module}-%{version}.tar.gz
 License:	BSD
 Group:		Development/Python
-Url:		http://mpmath.org
+Url:		https://mpmath.org
 BuildArch:	noarch
 BuildRequires:	python
 BuildRequires:	python-setuptools
