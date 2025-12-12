@@ -3,7 +3,7 @@
 Summary:	Python library for symbolic mathematics
 Name:		python-%{module}
 Version:	1.1.0
-Release:	2
+Release:	3
 Source0:	http://mpmath.org/files/%{module}-%{version}.tar.gz
 License:	BSD
 Group:		Development/Python
